@@ -1,16 +1,36 @@
-# React + Vite
+﻿# Autonomous Database Optimizer — Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite dashboard for the [Autonomous Database Optimizer](https://github.com/IshaanTripathi03/autonomous-db-optimizer) — a Spring Boot agent that watches a PostgreSQL instance, diagnoses slow queries via RAG, and proposes index fixes for human approval.
 
-Currently, two official plugins are available:
+This dashboard is the visual interface for that backend's approval workflow: real recommendations, real approve/reject actions, real execution results — no mock data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it shows
 
-## React Compiler
+- **Approval queue** — every recommendation the backend's autonomous monitor has queued, with live status (`PENDING`, `APPROVED`, `REJECTED`, `APPLIED`, `FAILED`)
+- For each recommendation: target table, proposed index type/columns, the LLM's justification
+- **Approve / Reject** actions, calling the backend directly — approving triggers real `CREATE INDEX CONCURRENTLY` execution and verification on the backend
+- Verification results (before/after `EXPLAIN ANALYZE` timing) once a recommendation is applied
+- Failure messages surfaced as-is when execution fails validation (e.g. a redundant index) — nothing hidden or faked
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Architecture
 
-## Expanding the ESLint configuration
+The dashboard is a pure API consumer — all diagnosis, RAG retrieval, LLM reasoning, and DDL execution happen in the backend. See the [backend repo](https://github.com/IshaanTripathi03/autonomous-db-optimizer) and its ADRs for the full system design and safety model.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Running locally
+
+Requires the backend running first at `localhost:8080` with CORS enabled for `localhost:5173` (already configured on the backend).
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`.
+
+## Scope
+
+This is a minimal, functional dashboard focused on the core approval loop — not a full production frontend. It only renders what the backend's real API returns; if a field or feature isn't in the API response, it isn't faked here.
+
+## Tech stack
+
+React 19, Vite, vanilla `fetch` (no state management library — app is small enough not to need one)
