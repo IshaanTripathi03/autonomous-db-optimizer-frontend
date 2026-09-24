@@ -1,0 +1,110 @@
+﻿.queue-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.queue-error {
+  color: var(--status-rejected);
+}
+
+.queue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.queue-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+
+.queue-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.queue-table {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.queue-status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.queue-columns {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.queue-justification {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.queue-verification {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--status-applied);
+  margin-bottom: 10px;
+}
+
+.queue-verification-arrow {
+  color: var(--text-muted);
+}
+
+.queue-verification-delta {
+  color: var(--text-muted);
+}
+
+.queue-result-message {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.queue-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 7px 16px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background: var(--status-applied);
+  border-color: var(--status-applied);
+}
+
+.btn-reject:hover:not(:disabled) {
+  background: var(--status-rejected);
+  border-color: var(--status-rejected);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
