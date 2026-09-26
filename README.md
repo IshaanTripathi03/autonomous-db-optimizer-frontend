@@ -4,6 +4,10 @@ React + Vite dashboard for the [Autonomous Database Optimizer](https://github.co
 
 This dashboard is the visual interface for that backend's approval workflow: real recommendations, real approve/reject actions, real execution results — no mock data.
 
+![Dashboard showing a live-approved recommendation with real before/after timing](docs/dashboard-demo.png)
+
+*A composite index recommendation on `(user_id, status)`, approved and applied live — the 43.6ms → 0.037ms (99.92% faster) result is measured automatically by the backend's own before/after `EXPLAIN ANALYZE`, not staged.*
+
 ## What it shows
 
 - **Approval queue** — every recommendation the backend's autonomous monitor has queued, with live status (`PENDING`, `APPROVED`, `REJECTED`, `APPLIED`, `FAILED`)
